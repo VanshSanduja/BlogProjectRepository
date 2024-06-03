@@ -1,0 +1,14 @@
+{
+  "name": "blogprojectrepository",
+  "version": "1.0.0",
+  "description": "This is my first assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.2"
+  }
+}
