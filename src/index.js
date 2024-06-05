@@ -99,23 +99,23 @@
 //   console.log("very hot");
 // }
 
-let givenArray = [2, 4, 6, 8, 10];
+// let givenArray = [2, 4, 6, 8, 10];
 
-let target = 10;
+// let target = 10;
 
-let num1 = 0;
-let num2 = 0;
+// let num1 = 0;
+// let num2 = 0;
 
-for (let i = 0; i < givenArray.length; i++) {
+// for (let i = 0; i < givenArray.length; i++) {
 
-    for (let j = 1; j < givenArray.length; j++) {
+//     for (let j = 1; j < givenArray.length; j++) {
 
-        if(givenArray[i] + givenArray[j] == target) {
+//         if(givenArray[i] + givenArray[j] == target) {
 
-            num1 = givenArray[i];
-            num2 = givenArray[j];
-        }
-    }
-}
+//             num1 = givenArray[i];
+//             num2 = givenArray[j];
+//         }
+//     }
+// }
 
-console.log(`${num1} ${num2}`);
+// console.log(`${num1} ${num2}`);
