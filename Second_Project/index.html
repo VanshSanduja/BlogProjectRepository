@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table,
+    tr, td {
+        border: 2px solid black;
+        text-align: center;
+        width: 800px;
+    }
+</style>
+
+<body>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Userame</td>
+            <td>Password</td>
+            <td>Email</td>
+        </tr>
+        <tbody id="table-rows"></tbody>
+    </table>
+</body>
+<script>
+    fetch('http://localhost:5000/getAllData')
+        .then(response => response.json())
+        .then(res => {
+            const id = res.data;
+            let rows = '';
+            console.log(res.data);
+            id.forEach(url => {
+                rows = rows + `<tr> <td>${url.name}</td><td>${url.userName}</td> <td>${url.Password}</td> <td>${url.Email}</td> </tr>`
+            })
+            document.getElementById('table-rows').innerHTML = rows;
+        })
+        .catch(error => console.log(error));
+</script>
+
+</html>
