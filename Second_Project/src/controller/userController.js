@@ -1,5 +1,9 @@
 const userModel = require('../models/userModel.js');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+require('dotenv').config()
 
 exports.createUser = async (req, res) => {
   try {
@@ -22,7 +26,6 @@ exports.createUser = async (req, res) => {
 
     let checkPassword = await bcrypt.hash(Password, 5);
     req.body.Password = checkPassword;
-    console.log(checkPassword);
 
     const userData = req.body;
     const createdData = await userModel.create(userData);
@@ -35,7 +38,7 @@ exports.createUser = async (req, res) => {
 
 exports.getAllUserData = async (req, res) => {
   try {
-    const getdata = await userModel.findOne().sort({_id: -1});
+    const getdata = await userModel.find();
     res
       .status(200)
       .send({ status: true, msg: "Successfully get All Data", data: getdata });
@@ -49,7 +52,7 @@ exports.login = async(req, res) => {
 
   try{
 
-    const data = req.body;
+    const author = req.body;
     const { Email, Password } = req.body;
 
     let oldUser = await userModel.findOne({ Email: Email });
@@ -60,13 +63,22 @@ exports.login = async(req, res) => {
     const checkpasword = await bcrypt.compare(Password.trim(), oldUser.Password);
     if (!checkpasword) {return res.status(400).send({ msg: "Given Password is Incorrect!" })};
 
-    res.status(200).send({msg: "Login Successfully!!!"});
 
-  }
+    let token = jwt.sign(
+      {
 
-  catch(error){
+        authorId : oldUser._id.toString(),
+      },
+      process.env.SecretKey_For_Login, {expiresIn: '12h'}
+    )
 
+    const userId = oldUser['_id'];
 
+    return res.status(201).send({msg : "User Logged in Successfully!!!", token, userId})
+
+  } catch(error){
+
+    return res.status(500).send({msg: error.message})
 
   }
 };
