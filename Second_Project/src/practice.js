@@ -22,4 +22,4 @@ mongoose.connect(url)
 
 app.use('/', route);
 
-app.listen(port, ()=> console.log(`Server is Running Successfully ${port} `));
+app.listen(port, () => console.log(`Server is Running Successfully ${port} `));

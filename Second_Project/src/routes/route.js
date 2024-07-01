@@ -6,12 +6,12 @@ const {authenticate} = require('../middleware/userAuthentication.js');
 
 // <------API Used for Creating a user------>
 route.post('/createdData', createUser);
-// <------API Used for Getting all database data------>
-route.get('/getAllData', getAllUserData);
 // <------API Used for LogIn a user------>
 route.post('/login', login);
 // <------API Used for Authenticate a user and Creating a blog------>
 route.post('/createBlog', authenticate, createBlog);
+// <------API Used for Getting all database data------>
+route.get('/getAllData', getAllUserData);
 
 
 route.all("/*", (req, res) => {

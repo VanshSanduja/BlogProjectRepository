@@ -6,35 +6,37 @@ const dotenv = require('dotenv');
 require('dotenv').config()
 
 exports.createUser = async (req, res) => {
+
   try {
-    const { name, userName, Password, Email } = req.body;
+    const data = req.body;
+
+    const {Name, Email, Password} = data;
 
     let validEmail = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+    
+      if(Object.keys(data).length == 0) {
+      return res.status(400).send({status: false, msg: "Plz Provide Details"});
+     }
 
-    if (validEmail.test(Email) == false) {
-      return res.status(400).send({ msg: "Please provise a valid Email!!!" });
+    if(validEmail.test(Email) == false) {
+
+      return res.status(400).send({msg : "Plz Provide a valid Email"});
     }
 
-    console.log(`Name: ${name}`);
-    console.log(`Username: ${userName}`);
-    console.log(`Password: ${Password}`);
-    console.log(`Email: ${Email}`);
+    let encryptedPassword = await bcrypt.hash(Password, 20);
+    data.Password = encryptedPassword;
 
-    if (req.body.length == 0) {
-      return res.status(400).send({ msg: "Plz provide data" });
-    }
+    console.log(data);
 
-    let checkPassword = await bcrypt.hash(Password, 5);
-    req.body.Password = checkPassword;
-
-    const userData = req.body;
-    const createdData = await userModel.create(userData);
-
-    return res.status(500).send({ msg: "Data is Created", msg: createdData });
-  } catch (error) {
-    return res.status(500).send({ msg: error.message });
+    let createdData = await userModel.create(data);
+    return res.status(201).send({status: true, msg: "Data Created Successfully",data: createdData});
+  
   }
-};
+
+  catch(error) {
+    return res.status(500).send({msg: error.message});
+  }
+}
 
 exports.getAllUserData = async (req, res) => {
   try {
@@ -50,35 +52,30 @@ exports.getAllUserData = async (req, res) => {
 
 exports.login = async(req, res) => {
 
-  try{
+  try {
+  let loginData = req.body;
+  const {Email, Password} = loginData;
 
-    const author = req.body;
-    const { Email, Password } = req.body;
+  let oldUser = await userModel.findOne({Email : Email});
+  if(!oldUser) return res.status(400).send({status: false, msg: "User Not Present with this credentials, Plz SignUp"});
 
-    let oldUser = await userModel.findOne({ Email: Email });
-    if (!oldUser) { return res.status(400).send({status: false, message: "User Not present in database!!!, Plz SignUp"})};
-    
-    console.log(oldUser.Password,oldUser.Email);
-    
-    const checkpasword = await bcrypt.compare(Password.trim(), oldUser.Password);
-    if (!checkpasword) {return res.status(400).send({ msg: "Given Password is Incorrect!" })};
+  const checkPassword = await bcrypt.compare(Password.trim(), oldUser.Password);
+  if(!checkPassword) return res.status(400).send({status: false, msg: "Password is Incorrect"});
+  
+  let SignUpToken = jwt.sign(
+    {
+      userId: oldUser._id.toString(),
+    },
+    process.env.SecretKey_For_Login, {expiresIn: '24h'}
+  )
+  
+  const userId = oldUser['_id'];
+  
+  console.log(loginData);
+  return res.status(201).send({status: true, msg: "Login successfully", SignUpToken, userId});
 
-
-    let token = jwt.sign(
-      {
-
-        authorId : oldUser._id.toString(),
-      },
-      process.env.SecretKey_For_Login, {expiresIn: '12h'}
-    )
-
-    const userId = oldUser['_id'];
-
-    return res.status(201).send({msg : "User Logged in Successfully!!!", token, userId})
-
-  } catch(error){
-
-    return res.status(500).send({msg: error.message})
-
+}
+  catch(error) {
+    return res.status(500).send({msg: error.message});
   }
 };

@@ -5,22 +5,20 @@ dotenv.config();
 
 exports.authenticate = (req, res, next) => {
 
-    try{
-        let token = req.headers["x-api-key"];
+ try {
 
-        if(!token) return res.status(400).send({status: false, msg: "Token must be present"});
+    let token = req.headers["my-api-key"];
 
-        let decodedToken = jwt.verify(token, process.env.SecretKey_For_Login);
+    if(!token) return res.status(400).send({status: false, msg : "Token must be present"});
 
-        if(!decodedToken) return res.status(401).send({status: false, msg: "Token is Invalid"})
-        
-            req.decodedToken = decodedToken;
-            next();
-    
-    }
+    let decodedToken = jwt.verify(token, process.env.SecretKey_For_Login);
 
-    catch(error) {
+    if(!decodedToken) return res.send(401).send({status: false, msg : "Token is Invalid"});
 
-        return res.status(500).send({msg: error.message});
-    }
+    next();
+ }   
+
+ catch(error) {
+    return res.status(500).send({msg: error.message});
+ }
 }
