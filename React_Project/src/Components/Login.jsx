@@ -1,82 +1,76 @@
-import React from 'react'
-import Images from "../Images/Img 1.jpg";
+import React, {useState} from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
+// import Images from "../Images/Img 1.jpg";
 // import {BrowserRouter, Routes, Route} from "react-router-dom";
 
-function Login() {
-  const inputStyle = {
-    border: "2px solid black",
-    borderRadius: "5px",
-  };
+function LogIn() {
 
-  const containerStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    border: "2px solid lightblue",
-    borderRadius: "10px",
-    width: "350px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-  };
+  const navigate = useNavigate();
+  const [logInData, setLogInData] = useState();
 
-  const buttonStyle = {
-    border: "2px solid black",
-    borderRadius: "15px",
-    backgroundColor: "lightblue",
-    width: "100px",
-  };
+  const changeLogInData = (data) => {
 
-  const buttonStyle2 = {
-    border: "2px solid black",
-    borderRadius: "15px",
-    backgroundColor: "lightblue",
-    width: "200px",
-  };
+    data.preventDefault()
+    setLogInData({...logInData, [data.target.name]: data.target.value})
+    // console.log(logInData);
+  }
 
-  const buttonStyleGoogle = {
-    border: "2px solid black",
-    borderRadius: "15px",
-    color: "#fff",
-    backgroundColor: "Red",
-    width: "200px",
-  };
+  const submitLogInData = async (data) => {
+    data.preventDefault()
+    try {
+      
+      const url = 'http://localhost:5000/login';
 
+      const logInUser = await axios.post(url, logInData);
+
+      const token = logInUser.data.SignUpToken;
+      const userId = logInUser.data.userId;
+      if(logInUser.status === false) window.alert("Invalid Data");
+
+      else {
+        localStorage.setItem('Accesstoken', token);
+        localStorage.setItem('userId', userId);
+        navigate('/');
+      }
+    } catch (error) {
+      window.alert(error.response.data.msg);
+    }
+  }
   return (
-  <>
-      <div style={{ fontFamily: '"Be Vietnam Pro", sans-serif' }}>
-        <div className="h-screen w-full">
-          <img
-            src={Images}
-            className="h-full w-full object-cover"
-            alt="background"
-          ></img>
-        </div>
-        <div className="App" style={containerStyle}>
-          <h1 style={{ color: "#fff" }}>Login Form</h1>
-          <label>
-            <br />
-            <h1 style={{ color: "#fff" }}>Email</h1>
-          </label>
-          <input type="email" style={inputStyle} />
-          <label>
-            <br />
-            <h1 style={{ color: "#fff" }}>Password</h1>
-          </label>
-          <input type="password" style={inputStyle} />
-          <br />
-          <button style={buttonStyle}>Submit</button>
-          <br />
-          <button style={buttonStyleGoogle}>LogIn using Google</button>
-          <br />
-          <button style={buttonStyle2}>LogIn using Facebook</button>
-          <br />
+    <div className="signUp flex w-full min-h-screen bg-cover bg-center justify-center items-center p-4 py-[110px]">
+      <div className="bg-gray-100 fixed flex rounded-2xl shadow-2xl p-5">
+        <div className="px-8">
+          <h1 className="text-2xl">Log In</h1>
+          <p className="mt-4">
+            If you are a New Member, Please
+            <Link className="text-blue-500" to="/signup">
+              {" "}
+              Sign Up
+            </Link>
+          </p>
+
+          <form className="flex flex-col gap-4">
+            <input
+              className="p-2 mt-8 rounded-xl border"
+              type="email"
+              onChange={changeLogInData}
+              name="Email"
+              placeholder="Enter Your Email"
+            />
+            <input
+              className="p-2 rounded-xl border"
+              type="password"
+              onChange={changeLogInData}
+              name="Password"
+              placeholder="Enter Your Password"
+            />
+            <button onClick={submitLogInData} className="bg-[#1e376e] rounded-xl text-white py-2 hover:">Log In</button>
+          </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default Login
+export default LogIn;

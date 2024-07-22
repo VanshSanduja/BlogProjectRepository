@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.signUp {
+    background-image: url(./Images/Book-Background.jpg);
+}

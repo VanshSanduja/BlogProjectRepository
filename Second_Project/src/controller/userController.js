@@ -1,5 +1,5 @@
 const userModel = require('../models/userModel.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
@@ -22,12 +22,10 @@ exports.createUser = async (req, res) => {
 
       return res.status(400).send({msg : "Plz Provide a valid Email"});
     }
-
-    let encryptedPassword = await bcrypt.hash(Password, 20);
-    data.Password = encryptedPassword;
-
-    console.log(data);
-
+    
+    let encryptedPassword = await bcrypt.hash(Password, 10);
+    data.Password = encryptedPassword; 
+    
     let createdData = await userModel.create(data);
     return res.status(201).send({status: true, msg: "Data Created Successfully",data: createdData});
   
