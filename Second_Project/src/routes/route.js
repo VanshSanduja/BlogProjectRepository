@@ -2,16 +2,19 @@ const express = require('express');
 const route = express.Router();
 const {createUser, getAllUserData, login} = require('../controller/userController.js');
 const {createBlog} = require('../controller/blogController.js');
-const {authenticate} = require('../middleware/userAuthentication.js');
+const {getAllBlogsData} = require('../controller/blogController.js');
+// const {authenticate} = require('../middleware/userAuthentication.js');
 
 // <------API Used for Creating a user------>
 route.post('/createdData', createUser);
 // <------API Used for LogIn a user------>
 route.post('/login', login);
 // <------API Used for Authenticate a user and Creating a blog------>
-route.post('/createBlog', authenticate, createBlog);
+route.post('/createBlog', createBlog);
 // <------API Used for Getting all database data------>
 route.get('/getAllData', getAllUserData);
+// <------API Used for Getting all Books data------>
+route.get('/getAllBooksData', getAllBlogsData);
 
 
 route.all("/*", (req, res) => {

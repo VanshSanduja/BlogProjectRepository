@@ -52,7 +52,7 @@ function Navbar() {
             </button>
           </div>
         </div>
-        <div className="lg:hidden md:hidden sm:block" onClick={toggleMenu}>
+        <div className="lg:hidden md:hidden sm:block cursor-pointer" onClick={toggleMenu}>
           <i
             className="fa-solid fa-bars fa-flip-vertical fa-2xl fixed mx-2 my-0.5"
             style={{ color: "#74C0FC" }}

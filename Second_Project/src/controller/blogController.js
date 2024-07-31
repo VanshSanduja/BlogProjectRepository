@@ -25,12 +25,12 @@ exports.getAllBlogsData = async (req, res) => {
 
     if (filter.category == 'All Blogs') {
       
-      const AllData = await blogModel.find({isDeleted:false}).sort({_id: -1});
+      const AllData = await blogModel.find().sort({_id: -1});
       return res.status(200).send({msg: AllData})
     }
     else {
 
-      const getData = await blogModel.find({categories: filter.category, isDeleted:false}).sort({_id: -1})
+      const getData = await blogModel.find({categories: filter.category}).sort({_id: -1})
       if (!getData) return res.status(404).send({msg: "No Blogs Present"});
       return res.status(200).send({msg: getData});
     }
