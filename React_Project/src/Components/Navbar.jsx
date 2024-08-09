@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import images from "../Images/nav logo.png";
+import Logo from "../Images/NovelNest-logo.png";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,16 +12,18 @@ function Navbar() {
   return (
     <header>
       <nav
-        className="flex fixed bg-[#343131a4] w-full md:h-auto sm:h-auto sm:transition-all duration-300 ease-in-out md:top-0 md:justify-between items-center mx-auto border-b-4 border-blue-300"
+        className="flex fixed bg-[#343131a4] w-full md:h-auto md:top-0 md:justify-between items-center mx-auto border-b-4 border-blue-300"
         style={{ fontFamily: '"Be Vietnam Pro", sans-serif' }}
       >
         <div>
-          <img className="size-14 mx-12" src={images} alt="navbar-logo" />
+          <Link to="/">
+            <img className="mx-12 h-14 w-18" src={Logo} alt="navbar-logo" />
+          </Link>
         </div>
         <div
           className={`absolute max-w-5xl w-full flex flex-col items-center text-lg md:static md:flex md:flex-row md:justify-between ${
             menuOpen
-              ? "top-16 opacity-100"
+              ? "top-14 opacity-100 bg-[#343131a4] border-blue-300"
               : "top-[-490px] opacity-0 md:opacity-100"
           } transition-all duration-300 ease-in-out md:top-0`}
         >
@@ -29,18 +31,35 @@ function Navbar() {
             <li className="relative lg:mx-5 text-blue-300 my-2 w-fit block mx-3 md:my-0 md:top-0">
               <Link
                 to="/"
-                className="relative block after:block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[3px] after:bg-blue-300 after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center">All Books
+                className="relative block after:block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[3px] after:bg-blue-300 after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center"
+              >
+                Home
               </Link>
             </li>
 
             <li className="relative lg:mx-5 text-blue-300 my-2 w-fit block mx-3 md:my-0 md:top-0">
-              <Link to="/about" className="relative block after:block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[3px] after:bg-blue-300 after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center">Categories</Link>
+              <Link
+                to="/about"
+                className="relative block after:block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[3px] after:bg-blue-300 after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center"
+              >
+                Categories
+              </Link>
             </li>
             <li className="relative lg:mx-5 text-blue-300 my-2 w-fit block mx-3 md:my-0 md:top-0">
-              <Link to="/contact" className="relative block after:block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[3px] after:bg-blue-300 after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center">New Arrivals</Link>
+              <Link
+                to="/contact"
+                className="relative block after:block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[3px] after:bg-blue-300 after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center"
+              >
+                New Arrivals
+              </Link>
             </li>
             <li className="relative lg:mx-5 text-blue-300 my-2 w-fit block mx-3 md:my-0 md:top-0">
-              <Link to="/blog" className="relative block after:block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[3px] after:bg-blue-300 after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center">Blogs</Link>
+              <Link
+                to="/blog"
+                className="relative block after:block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[3px] after:bg-blue-300 after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-center"
+              >
+                Blogs
+              </Link>
             </li>
           </ul>
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
@@ -52,7 +71,10 @@ function Navbar() {
             </button>
           </div>
         </div>
-        <div className="lg:hidden md:hidden sm:block cursor-pointer" onClick={toggleMenu}>
+        <div
+          className="lg:hidden md:hidden sm:block cursor-pointer"
+          onClick={toggleMenu}
+        >
           <i
             className="fa-solid fa-bars fa-flip-vertical fa-2xl fixed mx-2 my-0.5"
             style={{ color: "#74C0FC" }}

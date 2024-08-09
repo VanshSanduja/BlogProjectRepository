@@ -3,6 +3,7 @@ import React from "react";
 // import axios from 'axios';
 import Banner from './Banner.jsx';
 import GetAllBookData from './getAllBookData.jsx';
+import Footer from './Footer.jsx'
 
 function Home() {
   return (
@@ -10,6 +11,8 @@ function Home() {
      
       <Banner />
       <GetAllBookData />
+      <Footer />
+      
     </div>
   );
 }

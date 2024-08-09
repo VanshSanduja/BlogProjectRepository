@@ -15,43 +15,42 @@ import {
   Contact,
   Blog,
   About,
-  DataProvider,
+  ViewDetails,
+  Footer
+  // DataProvider,
 } from "./Components/All_Components";
 
-const PriveRoute = ({ isAuthentication, ...props }) => {
-  return isAuthentication ? <><Navbar /><Outlet /></>:<Navigate replace to='/login' />
-}
 
 function App() {
+  const PriveRoute = ({ isAuthentication, ...props }) => {
+    return isAuthentication ? <><Navbar /><Outlet /><Footer /></> : <Navigate to='/login' />
+  }
   
   const [isAuthentication, isUserAuthentication] = useState(false);
-
   return (
-    <DataProvider>
+    // <DataProvider>
         <BrowserRouter>
-          <Navbar />
+        <Navbar />
           <Routes>
-            <Route
-              path="/login"
-              element={<LogIn isAuthentication={isUserAuthentication} />}
-            />
+              <Route path="*" element={<div>404 Not Found</div>} />
+              <Route path="/signup" element={<SignUp />} />
+                <Route path="/" element={<Home />} />
+              <Route path="/login" element={<LogIn isUserAuthentication={isUserAuthentication} />} />
 
-            <Route
-              path="/"
-              element={<PriveRoute isAuthentication={isAuthentication} />}
-            >
-              <Route path="/" element={<Home />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/blog" element={<Blog />} />
-            </Route>
+                <Route path="/" element={<PriveRoute isAuthentication={isAuthentication} />}>
 
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="*" element={<div>404 Not Found</div>} />
+                <Route path="/" element={<Home />} />
+                <Route path="/viewdetails/:id" element={<ViewDetails />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/blog" element={<Blog />} />
+
+                </Route>
+
           </Routes>
+
         </BrowserRouter>
-    </DataProvider>
+    // {/* </DataProvider> */}
   );
 }
 

@@ -32,7 +32,7 @@ function SignUp() {
 
   return (
     <div className="signUp flex w-full min-h-screen bg-cover bg-center justify-center items-center p-4 py-[110px]">
-      <div className="bg-gray-100 fixed flex rounded-2xl shadow-2xl p-5">
+      <div className="bg-gray-100 flex rounded-2xl shadow-2xl p-5">
         <div className="px-8">
           <h1 className="text-2xl">Sign Up</h1>
           <p className="mt-4">

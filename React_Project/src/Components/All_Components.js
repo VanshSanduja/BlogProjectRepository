@@ -6,3 +6,5 @@ export { default as Blog } from './Blog';
 export { default as Contact } from './New_Arrival';
 export { default as About } from './About';
 export {default as DataProvider} from './DataProvider';
+export {default as ViewDetails} from './ViewDetails';
+export { default as Footer} from './Footer';
