@@ -1,4 +1,5 @@
 export { default as Navbar } from './Navbar';
+export { default as TestNavbar } from './TestNavbar';
 export { default as LogIn } from './Login';
 export { default as SignUp } from './SignUp';
 export { default as Home } from './Home';

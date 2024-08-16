@@ -16,14 +16,15 @@ import {
   Blog,
   About,
   ViewDetails,
-  Footer
+  Footer,
+  TestNavbar
   // DataProvider,
 } from "./Components/All_Components";
 
 
 function App() {
-  const PriveRoute = ({ isAuthentication, ...props }) => {
-    return isAuthentication ? <><Navbar /><Outlet /><Footer /></> : <Navigate to='/login' />
+  const PrivateRoute = ({ isAuthentication, ...props }) => {
+    return isAuthentication ? <><Outlet /><Footer /></> : <Navigate to='/login' />
   }
   
   const [isAuthentication, isUserAuthentication] = useState(false);
@@ -37,7 +38,7 @@ function App() {
                 <Route path="/" element={<Home />} />
               <Route path="/login" element={<LogIn isUserAuthentication={isUserAuthentication} />} />
 
-                <Route path="/" element={<PriveRoute isAuthentication={isAuthentication} />}>
+                <Route path="/" element={<PrivateRoute isAuthentication={isAuthentication} />}>
 
                 <Route path="/" element={<Home />} />
                 <Route path="/viewdetails/:id" element={<ViewDetails />} />
