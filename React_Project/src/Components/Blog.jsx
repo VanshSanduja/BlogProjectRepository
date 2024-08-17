@@ -3,7 +3,7 @@ import ProfilePic from '../Images/goku image.jfif'
 
 function Blog() {
   return (
-    <div className="signUp flex w-full min-h-screen bg-cover bg-center justify-center items-center py-[110px]">
+    <div className="bg-gray-600 flex w-full min-h-screen bg-cover bg-center justify-center items-center py-[110px]">
       <div className="bg-[#000000a3] w-full min-h-1 py-2 md:py-1 md:px-8">
         <div className="flex gap-5 items-center pt-3 md:pt-3 mt-[50px] md:mt-[30px]">
           <img
@@ -42,7 +42,7 @@ function Blog() {
           </div>
           
           {/* Right side image */}
-          <div className="space-y-4 mb-6 md:mb-0 pt-[100px] md:pt-[100px]">
+          <div className="space-y-4 mb-6 md:mb-0 pt-[100px] md:pt-[100px] pb-8">
             <h1 className="text-4xl md:text-6xl font-semibold text-white ">
               Hi, I'm{" "}
               <span className="text-white hover:text-blue-300 cursor-pointer">
