@@ -4,10 +4,16 @@ const {createUser, getAllUserData, login} = require('../controller/userControlle
 const {createBlog} = require('../controller/blogController.js');
 const {getAllBooks} = require('../controller/blogController.js');
 const {getBookData} = require('../controller/blogController.js');
+const multer = require('multer')
 // const {authenticate} = require('../middleware/userAuthentication.js');
 
+const uploadImage = multer({
+
+    storage: multer.diskStorage({})
+});
+
 // <------API Used for Creating a user------>
-route.post('/createdData', createUser);
+route.post('/createdData', uploadImage.single('ProfileImg'), createUser);
 // <------API Used for LogIn a user------>
 route.post('/login', login);
 // <------API Used for Authenticate a user and Creating a blog------>

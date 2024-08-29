@@ -50,6 +50,12 @@ function Navbar() {
           >
             Blog
           </Link>
+          <Link
+            to="/bookpublishing"
+            className="text-blue-300 font-medium px-3 py-2 rounded hover:bg-blue-300 hover:rounded-lg hover:text-white"
+          >
+            Book Publishing
+          </Link>
         </div>
       </div>
     </nav>

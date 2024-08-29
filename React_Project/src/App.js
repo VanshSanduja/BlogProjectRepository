@@ -17,7 +17,8 @@ import {
   About,
   ViewDetails,
   Footer,
-  TestNavbar
+  // TestNavbar,
+  BookPublishing
   // DataProvider,
 } from "./Components/All_Components";
 
@@ -36,6 +37,7 @@ function App() {
               <Route path="*" element={<div>404 Not Found</div>} />
               <Route path="/signup" element={<SignUp />} />
                 <Route path="/" element={<Home />} />
+                <Route path="/bookpublishing" element={<BookPublishing />} />
               <Route path="/login" element={<LogIn isUserAuthentication={isUserAuthentication} />} />
 
                 <Route path="/" element={<PrivateRoute isAuthentication={isAuthentication} />}>

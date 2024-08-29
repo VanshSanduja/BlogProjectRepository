@@ -8,6 +8,8 @@ require('dotenv').config()
 exports.createUser = async (req, res) => {
 
   try {
+
+    return res.send(req.file.path);
     const data = req.body;
 
     const {Name, Email, Password} = data;
