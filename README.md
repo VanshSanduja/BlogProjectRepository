@@ -1,2 +1,1 @@
-# BlogProjectRepository
-This is my first assignment
+Book Store MERN Project
